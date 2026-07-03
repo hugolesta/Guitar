@@ -1,14 +1,14 @@
 # Guitar
 
-A guitar practice and learning tool.
+Guitar Chord Navigator — a single-page tool for exploring guitar chords.
 
 ## About
 
-This project is in early stages. The goal is to build a tool to help with guitar practice and learning — details on features and tech stack to come as the project takes shape.
+A self-contained `index.html` app for browsing and visualizing guitar chords on the fretboard.
 
-## Status
+## Usage
 
-🚧 Just getting started.
+Open `index.html` in a browser — no build step or dependencies required.
 
 ## License
 
