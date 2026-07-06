@@ -222,11 +222,17 @@
   /* KEY ROWS */
   .key-row {
     display: grid;
-    grid-template-columns: 120px repeat(7, 1fr);
+    grid-template-columns: 120px 1fr;
     gap: 12px;
     margin-bottom: 12px;
     opacity: 0.35;
     transition: opacity 0.2s ease;
+  }
+
+  .chord-row-cards {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12px;
   }
 
   .key-row.highlighted {
@@ -408,6 +414,13 @@
   .scale-section {
     flex: 1;
     min-width: 0;
+  }
+
+  #detailFretboard svg,
+  #scaleFretboard svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
   }
 
   .scale-tabs {
@@ -1109,7 +1122,7 @@
   .melody-modal {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.85);
+    background: var(--bg);
     z-index: 200;
     display: flex;
     flex-direction: column;
@@ -1323,6 +1336,65 @@
     .main { padding: 24px 16px; }
     .chord-detail { padding: 16px; flex-direction: column; gap: 16px; }
     .detail-fretboard-wrap { width: 100%; justify-content: center; }
+  }
+
+  /* ── SMALL PHONES (iPhone SE/13 mini and similar, ≤600px) ── */
+  @media (max-width: 600px) {
+    header {
+      padding: 24px 16px 20px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .header-rule { display: none; }
+    .header-info { text-align: left; order: 3; flex-basis: 100%; }
+    .sidebar { padding: 20px 16px; }
+    .main { padding: 20px 12px; }
+
+    /* Degree header becomes irrelevant once rows stack as cards */
+    .degree-header { display: none; }
+
+    .key-row {
+      display: block;
+      opacity: 1;
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .key-row.dimmed { display: none; }
+
+    .key-name {
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+      padding: 0 0 10px;
+      margin-bottom: 12px;
+      font-size: 24px;
+    }
+
+    .chord-row-cards { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+
+    .chord-card { padding: 10px; }
+
+    /* Chord detail panel: single column, capped height, scrollable */
+    .chord-detail {
+      max-height: 85vh;
+      padding: 14px;
+      gap: 14px;
+    }
+    .detail-chord-name { font-size: 36px; min-width: 0; }
+    .close-btn { top: 12px; right: 12px; font-size: 10px; padding: 5px 10px; }
+    .detail-fretboard-wrap { flex-direction: column; align-items: center; }
+    .scale-tabs, .position-tabs { flex-wrap: wrap; }
+    .scale-section { width: 100%; }
+
+    /* Progression / arpeggio cards: avoid squeezed chord pill rows */
+    .prog-chords-row, .arp-header { flex-wrap: wrap; }
+    .prog-chord-pill { min-width: 44px; padding: 6px 8px; }
+
+    /* Melody modal: header controls wrap instead of overflowing */
+    .melody-header { flex-wrap: wrap; padding: 14px 16px; gap: 10px; }
+    .melody-controls { margin-left: 0; flex-basis: 100%; justify-content: flex-start; }
+    .melody-body { padding: 16px; }
+    .melody-info { flex-direction: column; }
   }
 </style>
 </head>
@@ -2126,7 +2198,9 @@ function renderRows() {
     };
     row.appendChild(keyCell);
 
-    // Chord cards
+    // Chord cards (wrapped so mobile can grid them independently of key-name)
+    const cardsWrap = document.createElement('div');
+    cardsWrap.className = 'chord-row-cards';
     chords.forEach((chord, i) => {
       const type = DEGREE_TYPES[i];
       const card = document.createElement('div');
@@ -2156,8 +2230,9 @@ function renderRows() {
       card.appendChild(miniWrap);
 
       card.onclick = () => showDetail(chord, DEGREE_LABELS[i]);
-      row.appendChild(card);
+      cardsWrap.appendChild(card);
     });
+    row.appendChild(cardsWrap);
 
     container.appendChild(row);
   });
