@@ -1342,6 +1342,273 @@
   .mel-info-content .highlight { color: var(--accent); }
   .mel-info-content .out { color: var(--dim); }
 
+  /* ── TABS ── */
+  .tabs-btn {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    background: none;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 9px 12px;
+    cursor: pointer;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: all 0.15s;
+    text-align: left;
+  }
+  .tabs-btn:hover { background: rgba(200,169,110,0.08); }
+
+  .tabs-modal {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  .tabs-modal.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .tabs-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 18px 32px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    flex-shrink: 0;
+  }
+
+  .tabs-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+  }
+
+  .tabs-close {
+    margin-left: auto;
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 14px;
+    cursor: pointer;
+    letter-spacing: 0.08em;
+    transition: all 0.12s;
+  }
+  .tabs-close:hover { border-color: var(--dim); color: var(--dim); }
+
+  .tabs-body {
+    flex: 1;
+    overflow: auto;
+    padding: 24px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .tabs-filter {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tabs-filter-chip {
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 7px 16px;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: all 0.12s;
+  }
+  .tabs-filter-chip:hover { border-color: var(--text-dim); color: var(--text); }
+  .tabs-filter-chip.active[data-level="facil"] { border-color: var(--major); color: var(--major); background: rgba(200,169,110,0.08); }
+  .tabs-filter-chip.active[data-level="medio"] { border-color: var(--minor); color: var(--minor); background: rgba(122,184,212,0.08); }
+  .tabs-filter-chip.active[data-level="dificil"] { border-color: var(--dim); color: var(--dim); background: rgba(196,120,120,0.08); }
+  .tabs-filter-chip.active[data-level="all"] { border-color: var(--accent); color: var(--accent); background: rgba(200,169,110,0.08); }
+
+  .tabs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 14px;
+  }
+
+  .tab-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tab-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .tab-card.facil::before { background: rgba(200,169,110,0.08); }
+  .tab-card.medio::before { background: rgba(122,184,212,0.08); }
+  .tab-card.dificil::before { background: rgba(196,120,120,0.08); }
+  .tab-card:hover::before { opacity: 1; }
+
+  .tab-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+
+  .tab-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    position: relative;
+  }
+
+  .tab-card-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    position: relative;
+  }
+
+  .tab-card-level {
+    align-self: flex-start;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  .tab-card.facil .tab-card-level { color: var(--major); border-color: var(--major); }
+  .tab-card.medio .tab-card-level { color: var(--minor); border-color: var(--minor); }
+  .tab-card.dificil .tab-card-level { color: var(--dim); border-color: var(--dim); }
+
+  .tab-card-empty {
+    background: var(--surface2);
+    border: 1px dashed var(--border);
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: center;
+    min-height: 90px;
+  }
+
+  .tabs-empty-state {
+    color: var(--text-dim);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    padding: 20px 0;
+    text-align: center;
+  }
+
+  /* tab detail (placeholder until fretboard playback is wired) */
+  .tab-detail {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+  }
+
+  .tab-detail-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+
+  .tab-detail-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--accent);
+  }
+
+  .tab-detail-source {
+    color: var(--text-muted);
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    font-style: italic;
+  }
+
+  .tab-detail-placeholder {
+    color: var(--text-dim);
+    font-size: 11px;
+    line-height: 1.7;
+    letter-spacing: 0.03em;
+  }
+
+  .tab-detail-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  .tab-speed-group {
+    display: flex;
+    gap: 4px;
+    margin-left: 8px;
+    padding-left: 8px;
+    border-left: 1px solid var(--border);
+  }
+
+  .tab-speed-btn { padding: 6px 10px; }
+
+  .tab-alphatab-wrap {
+    overflow-x: auto;
+    background: #f4f1ea;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    margin-top: 14px;
+    padding: 8px;
+  }
+
+  /* alphaTab playback cursor — the CDN build doesn't ship visible colors by default */
+  .tab-alphatab-wrap .at-cursor-bar {
+    background: rgba(200,169,110,0.35);
+  }
+  .tab-alphatab-wrap .at-cursor-beat {
+    background: #c8654e;
+    width: 3px !important;
+  }
+  .tab-alphatab-wrap .at-selection div {
+    background: rgba(200,169,110,0.15);
+  }
+  .tab-alphatab-wrap .at-highlight * {
+    fill: #c8654e !important;
+    stroke: #c8654e !important;
+  }
+
   @media (max-width: 900px) {
     .container { grid-template-columns: 1fr; }
     .sidebar { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
@@ -1386,6 +1653,12 @@
 
     .chord-card { padding: 10px; }
 
+    .tabs-header { padding: 16px 16px; gap: 12px; }
+    .tabs-title { font-size: 22px; }
+    .tabs-body { padding: 16px; }
+    .tabs-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .tab-card { padding: 12px; }
+
     /* Chord detail panel: single column, capped height, scrollable */
     .chord-detail {
       max-height: 85vh;
@@ -1409,6 +1682,7 @@
     .melody-info { flex-direction: column; }
   }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@coderline/alphatab@latest/dist/alphaTab.min.js"></script>
 </head>
 <body>
 
@@ -1452,6 +1726,7 @@
     </div>
 
     <button class="melody-btn" onclick="openMelody()">♩ Explorador de melodía</button>
+    <button class="tabs-btn" onclick="openTabs()">🎼 Tabs</button>
 
     <div class="finder">
       <div class="sidebar-label">Buscador de tonalidad</div>
@@ -2856,6 +3131,19 @@ renderProgressions();
 renderArpeggios();
 </script>
 
+<!-- ── TABS MODAL ── -->
+<div class="tabs-modal" id="tabsModal">
+  <div class="tabs-header">
+    <div class="tabs-title">Tabs</div>
+    <button class="tabs-close" onclick="closeTabs()">✕ cerrar</button>
+  </div>
+  <div class="tabs-body">
+    <div class="tabs-filter" id="tabsFilter"></div>
+    <div class="tabs-grid" id="tabsGrid"></div>
+    <div id="tabDetail"></div>
+  </div>
+</div>
+
 <!-- ── MELODY EXPLORER MODAL ── -->
 <div class="melody-modal" id="melodyModal">
   <div class="melody-header">
@@ -3398,6 +3686,148 @@ function renderMelSequencePractice(activeIdx) {
 // Close on backdrop click
 document.getElementById('melodyModal').addEventListener('click', e => {
   if (e.target === e.currentTarget) closeMelody();
+});
+
+// ── TABS ──────────────────────────────────────────────────────────────────────
+// notes: [{string, fret, duration}] — filled in once each tab is transcribed
+// to JSON (string/fret reuse the melody explorer's data model, see
+// getNoteAtPosition). Empty for now; cards render a placeholder until then.
+// tex: alphaTex notation (string.fret, string 1=e high ... 6=E low). See https://www.alphatab.net/docs/alphatex/introduction
+// file: path to a real Guitar Pro file (.gp/.gp3-5/.gpx) loaded via alphaTab's api.load()
+const TABS = [
+  { id: 'concerning-hobbits', title: 'Concerning Hobbits', subtitle: 'The Lord of the Rings', level: 'facil', key: 'D', file: 'tabs/concerning-hobbits.gp5' },
+  { id: 'star-wars-theme',    title: 'Star Wars (Main Theme)', subtitle: 'John Williams', level: 'facil', key: 'G', file: 'tabs/star-wars-theme.gp3' },
+  { id: 'hedwigs-theme',      title: "Hedwig's Theme", subtitle: 'Harry Potter', level: 'facil', key: 'Gm', file: 'tabs/hedwigs-theme.gpx' },
+  { id: 'greensleeves',       title: 'Greensleeves', subtitle: 'Tradicional (dominio público)', level: 'medio', key: 'Am', file: 'tabs/greensleeves.gp5' },
+];
+
+const LEVEL_LABELS = { all: 'Todas', facil: 'Fácil', medio: 'Medio', dificil: 'Difícil' };
+let tabsActiveLevel = 'all';
+let tabsSelectedId = null;
+
+function openTabs() {
+  document.getElementById('tabsModal').classList.add('open');
+  renderTabsFilter();
+  renderTabsGrid();
+  renderTabDetail();
+}
+
+function closeTabs() {
+  document.getElementById('tabsModal').classList.remove('open');
+  if (alphaTabApi) { alphaTabApi.destroy(); alphaTabApi = null; }
+}
+
+function setTabsLevel(level) {
+  tabsActiveLevel = level;
+  renderTabsFilter();
+  renderTabsGrid();
+}
+
+function renderTabsFilter() {
+  const el = document.getElementById('tabsFilter');
+  el.innerHTML = Object.keys(LEVEL_LABELS).map(level => `
+    <button class="tabs-filter-chip ${tabsActiveLevel === level ? 'active' : ''}" data-level="${level}"
+      onclick="setTabsLevel('${level}')">${LEVEL_LABELS[level]}</button>
+  `).join('');
+}
+
+function renderTabsGrid() {
+  const el = document.getElementById('tabsGrid');
+  const visible = TABS.filter(t => tabsActiveLevel === 'all' || t.level === tabsActiveLevel);
+
+  if (visible.length === 0) {
+    el.innerHTML = `<div class="tabs-empty-state">No hay tabs en este nivel todavía</div>`;
+    return;
+  }
+
+  el.innerHTML = visible.map(t => `
+    <div class="tab-card ${t.level}" onclick="selectTab('${t.id}')">
+      <div class="tab-card-level">${LEVEL_LABELS[t.level]}</div>
+      <div class="tab-card-title">${t.title}</div>
+      <div class="tab-card-meta">${t.subtitle} · tono ${t.key}</div>
+    </div>
+  `).join('');
+}
+
+let alphaTabApi = null;
+
+function selectTab(id) {
+  tabsSelectedId = id;
+  renderTabDetail();
+  document.getElementById('tabDetail').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function renderTabDetail() {
+  const el = document.getElementById('tabDetail');
+  const tab = TABS.find(t => t.id === tabsSelectedId);
+  if (alphaTabApi) { alphaTabApi.destroy(); alphaTabApi = null; }
+  if (!tab) { el.innerHTML = ''; return; }
+
+  if (!tab.file) {
+    el.innerHTML = `
+      <div class="tab-detail">
+        <div class="tab-detail-header">
+          <div class="tab-detail-title">${tab.title}</div>
+          <div class="tab-card-level">${LEVEL_LABELS[tab.level]}</div>
+        </div>
+        <div class="tab-detail-placeholder">Aún no hay un archivo de tab real cargado para esta canción.</div>
+      </div>
+    `;
+    return;
+  }
+
+  el.innerHTML = `
+    <div class="tab-detail">
+      <div class="tab-detail-header">
+        <div class="tab-detail-title">${tab.title}</div>
+        <div class="tab-card-level">${LEVEL_LABELS[tab.level]}</div>
+        <div class="tab-detail-controls">
+          <button class="mel-btn" id="tabPlayBtn" onclick="alphaTabApi && alphaTabApi.playPause()">▶ Reproducir</button>
+          <button class="mel-btn danger" onclick="alphaTabApi && alphaTabApi.stop()">✕ Detener</button>
+          <div class="tab-speed-group" id="tabSpeedGroup">
+            ${[0.5, 0.75, 1].map(s => `<button class="mel-btn tab-speed-btn ${s === 1 ? 'active' : ''}" data-speed="${s}" onclick="setTabSpeed(${s})">${s}x</button>`).join('')}
+          </div>
+        </div>
+      </div>
+      <div class="tab-alphatab-wrap">
+        <div id="tabAlphaTab"></div>
+      </div>
+    </div>
+  `;
+
+  alphaTabApi = new alphaTab.AlphaTabApi(document.getElementById('tabAlphaTab'), {
+    core: { fontDirectory: 'https://cdn.jsdelivr.net/npm/@coderline/alphatab@latest/dist/font/' },
+    player: {
+      enablePlayer: true,
+      enableCursor: true,
+      soundFont: 'https://cdn.jsdelivr.net/npm/@coderline/alphatab@latest/dist/soundfont/sonivox.sf2',
+      scrollElement: document.querySelector('.tabs-body'),
+    },
+  });
+
+  alphaTabApi.playbackSpeed = 1;
+
+  alphaTabApi.playerStateChanged.on(e => {
+    const btn = document.getElementById('tabPlayBtn');
+    if (!btn) return;
+    btn.textContent = e.state === 1 ? '⏸ Pausar' : '▶ Reproducir';
+  });
+
+  fetch(tab.file)
+    .then(r => r.arrayBuffer())
+    .then(buf => alphaTabApi.load(buf));
+}
+
+function setTabSpeed(speed) {
+  if (!alphaTabApi) return;
+  alphaTabApi.playbackSpeed = speed;
+  document.querySelectorAll('.tab-speed-btn').forEach(btn => {
+    btn.classList.toggle('active', parseFloat(btn.dataset.speed) === speed);
+  });
+}
+
+document.getElementById('tabsModal').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeTabs();
 });
 
 // ── INIT PRESETS ─────────────────────────────────────────────────────────────
