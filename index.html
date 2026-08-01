@@ -3790,6 +3790,7 @@ function renderTabDetail() {
           <div class="tab-speed-group" id="tabSpeedGroup">
             ${[0.5, 0.75, 1].map(s => `<button class="mel-btn tab-speed-btn ${s === 1 ? 'active' : ''}" data-speed="${s}" onclick="setTabSpeed(${s})">${s}x</button>`).join('')}
           </div>
+          <button class="mel-btn" onclick="alphaTabApi && alphaTabApi.print()">🖨 Imprimir</button>
         </div>
       </div>
       <div class="tab-alphatab-wrap">
